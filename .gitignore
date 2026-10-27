@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*keypair*.json
+test-results/
+playwright-report/
+coverage/
+*.log
+.DS_Store
+.codebase-memory/
+*.tgz
