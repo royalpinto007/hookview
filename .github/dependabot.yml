@@ -4,6 +4,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # Match Node 22 runtime APIs and the linter's supported compiler line.
+    # Major upgrades need a deliberate toolchain review.
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
     groups:
       development:
         dependency-type: development
