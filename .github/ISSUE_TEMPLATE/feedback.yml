@@ -1,0 +1,10 @@
+name: Feedback
+description: What helped, or what was confusing?
+body:
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Your feedback
+      description: What were you trying to understand, and what would help?
+    validations:
+      required: true
