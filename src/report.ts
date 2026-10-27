@@ -1,0 +1,4 @@
+import type { Inspection } from "./types.js";
+export function markdown(r: Inspection): string {
+  return `# hookview inspection\n\n${r.source === "example" ? "Fictional example" : "RPC observation"} · ${r.network} · mint slot ${r.slot}\n\n- Mint: ${r.mint}\n- Hook: ${r.mintInfo.hook.status}\n- Hook program: ${r.mintInfo.hook.programId ?? "None"}\n- Pointer authority: ${r.mintInfo.hook.authority ?? "None"}\n- Program executable: ${r.program.executable === null ? "Unverified" : r.program.executable}\n- Extra-account PDA: ${r.extra.address ?? "Not requested"}\n- Extra-account read: ${r.extra.status}\n\n${r.extra.entries.map((e) => `- Account #${e.index}: ${e.kind}, type=${e.discriminator}${e.programIndex === null ? "" : ", program account #" + e.programIndex}, signer=${e.signer}, writable=${e.writable}, address=${e.address ?? "Runtime dependent"}, config=${e.configHex}`).join("\n")}\n\n${r.notes.map((n) => "- " + n).join("\n")}\n`;
+}

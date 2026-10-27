@@ -1,0 +1,15 @@
+name: Bug report
+description: Tell us what went wrong.
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Include expected behavior and steps to reproduce. No secrets or private key files.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Node version, operating system and selected network

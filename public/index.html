@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="Read Token-2022 transfer hook configuration and extra-account requirements on Solana."
+    />
+    <title>hookview | Follow the transfer hook</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <a href="/" class="brand"><span aria-hidden="true">⌁</span> hookview</a
+        ><span class="local">LOCAL / READ ONLY</span
+        ><a href="#architecture">How it works</a>
+      </header>
+      <main>
+        <section class="intro">
+          <p class="eyebrow">SOLANA / TOKEN-2022</p>
+          <h1>Follow the hook.<br />Understand the controls.</h1>
+          <p>
+            Some tokens invoke extra code when they move.<br />Inspect the
+            configuration before the transfer.
+          </p>
+        </section>
+        <section class="query" aria-label="Mint lookup">
+          <form id="lookup">
+            <div class="mint-input">
+              <label for="mint">Token mint address</label
+              ><input
+                id="mint"
+                maxlength="44"
+                placeholder="Paste a Solana mint address…"
+                spellcheck="false"
+                autocomplete="off"
+                required
+              />
+            </div>
+            <div class="network-input">
+              <label for="network">Network</label
+              ><select id="network">
+                <option value="mainnet">Mainnet</option>
+                <option value="devnet">Devnet</option>
+              </select>
+            </div>
+            <button class="primary" type="submit" id="submit">
+              Inspect mint <span aria-hidden="true">↗</span>
+            </button>
+          </form>
+          <div class="examples">
+            <span>FICTIONAL EXAMPLES</span
+            ><button data-example="configured" type="button">
+              Configured hook</button
+            ><button data-example="disabled" type="button">Disabled hook</button
+            ><button data-example="plain" type="button">No hook</button
+            ><button data-example="legacy" type="button">Legacy mint</button>
+          </div>
+        </section>
+        <p id="status" role="status" aria-live="polite"></p>
+        <section id="report" aria-label="Inspection report" hidden>
+          <div class="report-top">
+            <div>
+              <span class="tag" id="source"></span>
+              <p id="observation" class="muted"></p>
+            </div>
+            <div class="exports">
+              <button id="copy" type="button">Copy report</button
+              ><button id="json" type="button">Export JSON</button
+              ><button id="markdown" type="button">Export Markdown</button>
+            </div>
+          </div>
+          <div class="flow" aria-label="Transfer execution path">
+            <span>Token mint</span><i>→</i><span>Token-2022</span><i>→</i
+            ><span id="flow-hook">Hook program</span><i>→</i
+            ><span>Extra accounts</span>
+          </div>
+          <div class="summary">
+            <div>
+              <small>HOOK STATUS</small
+              ><strong id="hook-status" data-testid="hook-status"></strong>
+            </div>
+            <div>
+              <small>POINTER CONTROL</small
+              ><strong id="pointer-control"></strong>
+            </div>
+            <div>
+              <small>EXTRA-ACCOUNT READ</small
+              ><strong id="extra-status"></strong>
+            </div>
+          </div>
+          <div class="details">
+            <section class="config">
+              <h2>Hook configuration</h2>
+              <dl id="facts"></dl>
+            </section>
+            <section class="notes">
+              <h2>What this tells you</h2>
+              <ul id="notes"></ul>
+            </section>
+          </div>
+          <section class="accounts">
+            <div class="section-head">
+              <h2>Extra-account requirements</h2>
+              <span class="tag">EXECUTE CONFIGURATION</span>
+            </div>
+            <p id="accounts-note" class="muted"></p>
+            <div id="accounts"></div>
+          </section>
+          <p class="limitation">
+            Configuration is not a safety verdict. This tool does not execute
+            hooks, simulate transfers or infer unknown program logic.
+          </p>
+        </section>
+        <section id="empty" class="empty">
+          <span aria-hidden="true">⌁</span>
+          <h2>Every transfer has a path.</h2>
+          <p>
+            Look up a mint to see whether extra program logic is configured.<br />Or
+            try a clearly labelled offline example.
+          </p>
+        </section>
+        <details id="architecture">
+          <summary>
+            How hookview reads the chain <span>Architecture + limits</span>
+          </summary>
+          <p>
+            A local Node server reads confirmed account data from public Solana
+            RPC. It decodes the mint's TransferHook extension, checks the
+            configured program account, derives the optional extra-account PDA
+            and decodes its Execute list. Each account has its own observation
+            slot.
+          </p>
+          <img
+            src="/architecture.svg"
+            alt="Mint address flows through public Solana RPC to mint, hook program and extra-account decoders, then a local dashboard and exports."
+          />
+          <p>
+            Dynamic addresses need transfer-specific data and remain unresolved.
+            Pointer authority is different from program upgrade authority, which
+            is not inspected. Other token extensions and custom code may add
+            behavior. See the
+            <a
+              href="https://www.solana-program.com/docs/transfer-hook-interface"
+              target="_blank"
+              rel="noreferrer"
+              >official interface</a
+            >.
+          </p>
+        </details>
+      </main>
+      <footer>
+        <span>No wallet. No signature. No transaction sent.</span
+        ><span>Open source · MIT · No telemetry</span>
+      </footer>
+    </div>
+  </body>
+</html>
