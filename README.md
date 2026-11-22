@@ -2,7 +2,12 @@
 
 See which extra program logic a Solana token transfer may invoke.
 
-![hookview dashboard](docs/screenshot.png)
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/royalpinto007/hookview/main/docs/screenshot.png">
+  <img src="https://raw.githubusercontent.com/royalpinto007/hookview/main/docs/demo-preview.webp" alt="Reading a token transfer hook and its extra accounts">
+</picture>
+
+[Download the 24-second demo (MP4)](https://github.com/royalpinto007/hookview/releases/download/project-demo/hookview-demo.mp4)
 
 [![CI](https://github.com/royalpinto007/hookview/actions/workflows/ci.yml/badge.svg)](https://github.com/royalpinto007/hookview/actions/workflows/ci.yml)
 [MIT](LICENSE) · [Architecture](docs/architecture.md) · [Reading the report](docs/guide.md)
